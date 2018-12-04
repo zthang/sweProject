@@ -10,11 +10,11 @@ public class helloController
     @RequestMapping(value = "/")
     public String index()
     {
-        return "welcome!";
+        return "Welcome!";
     }
     @RequestMapping(value = "hello")
     public String hello()
     {
-        return "hello";
+        return "Hello";
     }
 }
