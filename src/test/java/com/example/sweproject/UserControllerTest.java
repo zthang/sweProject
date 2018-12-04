@@ -23,8 +23,8 @@ public class UserControllerTest {
     User user=new User();
     @Before
     public void setUp() throws Exception {
-        user.setUserName("rr11");
-        user.setPassword("kk");
+        user.setUserName("test_userName");
+        user.setPassword("123");
     }
 
     @After
