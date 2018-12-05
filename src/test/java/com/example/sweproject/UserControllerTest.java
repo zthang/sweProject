@@ -23,7 +23,7 @@ public class UserControllerTest {
     User user=new User();
     @Before
     public void setUp() throws Exception {
-        user.setUserName("test_userName");
+        user.setUserName("dududu");
         user.setPassword("123");
     }
 
@@ -34,6 +34,6 @@ public class UserControllerTest {
     @Test
     @Transactional
     public void addUser() {
-        assertEquals(userController.addUser(user),1);
+        assertEquals(userController.addUser(user),0);
     }
 }

@@ -5,6 +5,7 @@ public class User
     private Integer userID;
     private String userName;
     private String password;
+    private int authority;
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -28,5 +29,13 @@ public class User
 
     public void setUserID(Integer userID) {
         this.userID = userID;
+    }
+
+    public void setAuthority(int authority) {
+        this.authority = authority;
+    }
+
+    public int getAuthority() {
+        return authority;
     }
 }
