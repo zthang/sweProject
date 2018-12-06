@@ -1,8 +1,6 @@
 package com.example.sweproject.controller;
 
-import com.example.sweproject.bean.CommonMessage;
-import com.example.sweproject.bean.LoginMessage;
-import com.example.sweproject.bean.User;
+import com.example.sweproject.bean.*;
 import com.example.sweproject.service.implement.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,9 +50,27 @@ public class UserController
         {
             loginMessage.setState(1);
             loginMessage.setMessage("登陆成功！");
-            loginMessage.setUserName(temp.getUserName());
+            loginMessage.setUserID(temp.getUserID());
             loginMessage.setAuthority(temp.getAuthority());
             return loginMessage;
+        }
+    }
+
+    @RequestMapping(value="/saveUserInfo",method = RequestMethod.POST)
+    public CommonMessage saveUserInfo(int userID, UserInfo userInfo, Address address)
+    {
+        CommonMessage commonMessage=new CommonMessage();
+        if(userServiceImp.saveUserInfo(userID,userInfo)==1&&userServiceImp.savaUserDormitory(userID,address)==1)
+        {
+            commonMessage.setState(1);
+            commonMessage.setMessage("保存成功！");
+            return commonMessage;
+        }
+        else
+        {
+            commonMessage.setState(0);
+            commonMessage.setMessage("保存失败！");
+            return commonMessage;
         }
     }
 }

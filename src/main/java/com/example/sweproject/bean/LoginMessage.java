@@ -4,7 +4,7 @@ public class LoginMessage
 {
     private int state;
     private String message;
-    private String userName;
+    private int userID;
     private int authority;
 
     public int getAuthority() {
@@ -20,8 +20,8 @@ public class LoginMessage
         return message;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getUserID() {
+        return userID;
     }
 
     public void setState(int state) {
@@ -32,8 +32,8 @@ public class LoginMessage
         this.message = message;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public void setAuthority(int authority) {

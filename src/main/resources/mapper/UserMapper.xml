@@ -6,7 +6,19 @@
     <insert id="insert" parameterType="com.example.sweproject.bean.User" useGeneratedKeys="true" keyProperty="userID">
         INSERT INTO USER SET userName=#{userName},password=#{password},authority=0
     </insert>
-     <select id="getUserByUserName" parameterType="String" resultType="com.example.sweproject.bean.User">
+    <insert id="insertUserInfo">
+        INSERT INTO USERINFO SET userID=#{userID}
+    </insert>
+    <insert id="insertUserDormitory">
+        INSERT INTO COMMUNITY SET userID=#{userID}
+    </insert>
+     <select id="getUserByUserName"  resultType="com.example.sweproject.bean.User">
          SELECT userName,password,userID,authority FROM USER WHERE userName=#{userName}
      </select>
+    <update id="saveUserInfo">
+        UPDATE USERINFO SET nickname=#{userInfo.nickname},sex=#{userInfo.sex},phoneNumber=#{userInfo.phoneNumber},mail=#{userInfo.mail},studentID=#{userInfo.studentID},department=#{userInfo.department} WHERE userID=#{userID}
+    </update>
+    <update id="saveUserDormitory">
+        UPDATE COMMUNITY SET name=#{address.address},detailAddress=#{address.detailAddress},lng=#{address.lng},lat=#{address.lat} WHERE userID=#{userID}
+    </update>
 </mapper>

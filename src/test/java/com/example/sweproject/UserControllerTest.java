@@ -1,6 +1,8 @@
 package com.example.sweproject;
 
+import com.example.sweproject.bean.Address;
 import com.example.sweproject.bean.User;
+import com.example.sweproject.bean.UserInfo;
 import com.example.sweproject.controller.UserController;
 import org.junit.After;
 import org.junit.Before;
@@ -20,11 +22,18 @@ public class UserControllerTest {
     @Autowired
     private UserController userController;
 
-    User user=new User();
+    UserInfo userInfo=new UserInfo();
+    Address address=new Address();
     @Before
     public void setUp() throws Exception {
-        user.setUserName("dududu");
-        user.setPassword("123");
+        userInfo.setNickname("1");
+        userInfo.setSex("男");
+        userInfo.setPhoneNumber("188");
+        userInfo.setMail("11");
+        userInfo.setStudentID("1652");
+        userInfo.setDepartment("111");
+        address.setAddress("友园");
+        address.setDetailAddress("304");
     }
 
     @After
@@ -32,8 +41,8 @@ public class UserControllerTest {
     }
 
     @Test
-    @Transactional
+    //@Transactional
     public void addUser() {
-        assertEquals(userController.addUser(user),0);
+        userController.saveUserInfo(14,userInfo,address);
     }
 }

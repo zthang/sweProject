@@ -1,11 +1,42 @@
 package com.example.sweproject.bean;
 
+import java.util.ArrayList;
+
 public class User
 {
     private Integer userID;
     private String userName;
     private String password;
     private int authority;
+    private UserInfo userInfo;
+    private ArrayList<Address> addresses;
+    private Address community;
+
+    public void setAddresses(ArrayList<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void setCommunity(Address community) {
+        this.community = community;
+    }
+
+    public ArrayList<Address> getAddresses() {
+
+        return addresses;
+    }
+
+    public Address getCommunity() {
+        return community;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public UserInfo getUserInfo() {
+
+        return userInfo;
+    }
 
     public void setUserName(String userName) {
         this.userName = userName;
