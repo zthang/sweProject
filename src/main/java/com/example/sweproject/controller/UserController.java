@@ -60,15 +60,14 @@ public class UserController
     public CommonMessage saveUserInfo(int userID, UserInfo userInfo, Address address)
     {
         CommonMessage commonMessage=new CommonMessage();
-        if(userServiceImp.saveUserInfo(userID,userInfo)==1&&userServiceImp.savaUserDormitory(userID,address)==1)
+        commonMessage.setState(userServiceImp.saveUserInfo(userID,userInfo,address));
+        if(commonMessage.getState()==1)
         {
-            commonMessage.setState(1);
             commonMessage.setMessage("保存成功！");
             return commonMessage;
         }
         else
         {
-            commonMessage.setState(0);
             commonMessage.setMessage("保存失败！");
             return commonMessage;
         }

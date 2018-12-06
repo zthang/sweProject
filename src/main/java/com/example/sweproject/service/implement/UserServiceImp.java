@@ -29,14 +29,11 @@ public class UserServiceImp implements UserService
     }
 
     @Override
-    public int saveUserInfo(int userID, UserInfo userInfo)
+    public int saveUserInfo(int userID, UserInfo userInfo,Address address)
     {
-        return userDao.saveUserInfo(userID,userInfo);
-    }
-
-    @Override
-    public int savaUserDormitory(int userID, Address address)
-    {
-        return userDao.saveUserDormitory(userID,address);
+        if(userDao.saveUserInfo(userID,userInfo)==1&&userDao.saveUserDormitory(userID,address)==1)
+            return 1;
+        else
+            return 0;
     }
 }
