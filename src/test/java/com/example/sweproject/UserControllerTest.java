@@ -43,6 +43,6 @@ public class UserControllerTest {
     @Test
     //@Transactional
     public void addUser() {
-        userController.saveUserInfo(14,userInfo,address);
+        userController.saveUserInfo(14,userInfo);
     }
 }

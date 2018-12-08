@@ -21,4 +21,24 @@
     <update id="saveUserDormitory">
         UPDATE COMMUNITY SET name=#{address.address},detailAddress=#{address.detailAddress},lng=#{address.lng},lat=#{address.lat} WHERE userID=#{userID}
     </update>
+    <insert id="insertUserAddress">
+        INSERT INTO USERADDRESS SET userID=#{userID},address=#{address.address},detailAddress=#{address.detailAddress},lng=#{address.lng},lat=#{address.lat}
+    </insert>
+    <select id="getUserInfo" resultType="com.example.sweproject.bean.UserInfo">
+        SELECT * FROM USERINFO WHERE userID=#{userID}
+    </select>
+    <resultMap id="userAddressMap" type="com.example.sweproject.bean.AddressList">
+        <collection property="addressList" ofType="com.example.sweproject.bean.Address">
+            <result column="address" property="address"/>
+            <result column="detailAddress" property="detailAddress"/>
+            <result column="lng" property="lng"/>
+            <result column="lat" property="lat"/>
+        </collection>
+    </resultMap>
+    <select id="getUserAddresses" resultMap="userAddressMap">
+        SELECT * FROM USERADDRESS WHERE userID=#{userID}
+    </select>
+    <select id="getUserDormitory" resultType="com.example.sweproject.bean.Address">
+        SELECT name address,detailAddress FROM COMMUNITY WHERE userID=#{userID}
+    </select>
 </mapper>

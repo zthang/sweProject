@@ -57,10 +57,10 @@ public class UserController
     }
 
     @RequestMapping(value="/saveUserInfo",method = RequestMethod.POST)
-    public CommonMessage saveUserInfo(int userID, UserInfo userInfo, Address address)
+    public CommonMessage saveUserInfo(int userID, UserInfo userInfo)
     {
         CommonMessage commonMessage=new CommonMessage();
-        commonMessage.setState(userServiceImp.saveUserInfo(userID,userInfo,address));
+        commonMessage.setState(userServiceImp.saveUserInfo(userID,userInfo));
         if(commonMessage.getState()==1)
         {
             commonMessage.setMessage("保存成功！");
@@ -71,5 +71,54 @@ public class UserController
             commonMessage.setMessage("保存失败！");
             return commonMessage;
         }
+    }
+    @RequestMapping(value = "insertUserAddress",method = RequestMethod.POST)
+    public CommonMessage insertUserAddress(int userID,Address address)
+    {
+        CommonMessage commonMessage=new CommonMessage();
+        commonMessage.setState(userServiceImp.insertUserAddress(userID,address));
+        if(commonMessage.getState()==1)
+        {
+            commonMessage.setMessage("插入成功！");
+            return commonMessage;
+        }
+        else
+        {
+            commonMessage.setMessage("插入失败！");
+            return commonMessage;
+        }
+    }
+    @RequestMapping(value = "saveUserDormitory",method = RequestMethod.POST)
+    public CommonMessage saveUserDormitory(int userID,Address address)
+    {
+        CommonMessage commonMessage=new CommonMessage();
+
+        commonMessage.setState(userServiceImp.saveUserDormitory(userID,address));
+        if(commonMessage.getState()==1)
+        {
+            commonMessage.setMessage("保存成功！");
+            return commonMessage;
+        }
+        else
+        {
+            commonMessage.setMessage("保存失败！");
+            return commonMessage;
+        }
+    }
+    @RequestMapping(value = "getUserInfo",method = RequestMethod.GET)
+    public UserInfo getUserInfo(int userID)
+    {
+        System.out.println(userID);
+        return userServiceImp.getUserInfo(userID);
+    }
+    @RequestMapping(value = "getUserAddresses",method = RequestMethod.GET)
+    public AddressList getUserAddresses(int userID)
+    {
+        return userServiceImp.getUserAddresses(userID);
+    }
+    @RequestMapping(value="getUserDormitory",method = RequestMethod.GET)
+    public Address getUserDormitory(int userID)
+    {
+        return userServiceImp.getUserDormitory(userID);
     }
 }
