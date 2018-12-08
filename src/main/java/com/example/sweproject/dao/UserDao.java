@@ -20,8 +20,8 @@ public interface UserDao
     int saveUserDormitory(@Param("userID") int userID,@Param("address") Address address);//保存宿舍楼信息
     int insertUserAddress(@Param("userID") int userID,@Param("address") Address address);//插入用户常用地址
 
-    UserInfo getUserInfo(@Param("userID")int userID);
-    AddressList getUserAddresses(@Param("userID")int userID);
-    Address getUserDormitory(@Param("userID")int userID);
+    UserInfo getUserInfo(@Param("userID")int userID);//获取基本信息
+    AddressList getUserAddresses(@Param("userID")int userID);//获取常用地址
+    Address getUserDormitory(@Param("userID")int userID);//获取宿舍楼信息
 
 }
