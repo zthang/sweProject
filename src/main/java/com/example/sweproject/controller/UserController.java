@@ -108,7 +108,6 @@ public class UserController
     @RequestMapping(value = "getUserInfo",method = RequestMethod.GET)
     public UserInfo getUserInfo(int userID)
     {
-        System.out.println(userID);
         return userServiceImp.getUserInfo(userID);
     }
     @RequestMapping(value = "getUserAddresses",method = RequestMethod.GET)
