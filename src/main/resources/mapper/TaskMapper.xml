@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sweproject.dao.TaskDao">
+    <select id="getTaskById" resultType="com.example.sweproject.bean.Task">
+        SELECT content,id,isAccepted,acceptWay FROM TASK WHERE id=#{id}
+    </select>
+    <update id="updateTaskAcceptedWay">
+        UPDATE TASK SET isAccepted=#{task.isAccepted},acceptWay=#{task.acceptWay} WHERE id=#{task.id}
+    </update>
+</mapper>
