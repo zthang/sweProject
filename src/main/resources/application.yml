@@ -10,7 +10,7 @@ spring:
             #监控统计拦截的filters
             filters: stat
             driver-class-name: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://111.230.110.146:3306/db_sweProject?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+            url: jdbc:mysql://111.230.110.146:3306/test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
             username: root
             password: 192837465
             #配置初始化大小/最小/最大

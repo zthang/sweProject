@@ -29,16 +29,20 @@
     </select>
     <resultMap id="userAddressMap" type="com.example.sweproject.bean.AddressList">
         <collection property="addressList" ofType="com.example.sweproject.bean.Address">
-            <result column="address" property="address"/>
-            <result column="detailAddress" property="detailAddress"/>
-            <result column="lng" property="lng"/>
-            <result column="lat" property="lat"/>
+            <result column="A_ID" property="addressID"/>
+            <result column="LANDMARK" property="address"/>
+            <result column="DESCRIPTION" property="detailAddress"/>
+            <result column="LONGITUTE" property="lng"/>
+            <result column="LATITUDE" property="lat"/>
         </collection>
     </resultMap>
     <select id="getUserAddresses" resultMap="userAddressMap">
-        SELECT * FROM USERADDRESS WHERE userID=#{userID}
+        SELECT * FROM USER_LOCATION_VIEW WHERE U_ID=#{userID}
     </select>
-    <select id="getUserDormitory" resultType="com.example.sweproject.bean.Address">
-        SELECT name address,detailAddress FROM COMMUNITY WHERE userID=#{userID}
+    <select id="getUserDormitory">
+        SELECT C_NAME FROM USER_INFO WHERE U_ID=#{userID}
+    </select>
+    <select id="getDormitoryList" resultType="String">
+        SELECT LANDMARK FROM LOCATIONS WHERE LOCATION_TYPE='宿舍'
     </select>
 </mapper>

@@ -58,6 +58,11 @@ public class UserServiceImp implements UserService
     }
 
     @Override
+    public ArrayList<String> getDormitoryList()
+    {
+        return userDao.getDormitoryList();
+    }
+    @Override
     public Address getUserDormitory(int userID)
     {
         return userDao.getUserDormitory(userID);

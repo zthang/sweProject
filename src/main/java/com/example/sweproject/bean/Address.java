@@ -2,10 +2,19 @@ package com.example.sweproject.bean;
 
 public class Address
 {
+    private int addressID;
     private String address;
     private String detailAddress;
     private float lng;
     private float lat;
+
+    public int getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
+    }
 
     public String getAddress() {
         return address;

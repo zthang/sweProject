@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 public class UserController
 {
@@ -72,7 +74,7 @@ public class UserController
             return commonMessage;
         }
     }
-    @RequestMapping(value = "insertUserAddress",method = RequestMethod.POST)
+    @RequestMapping(value = "/insertUserAddress",method = RequestMethod.POST)
     public CommonMessage insertUserAddress(int userID,Address address)
     {
         CommonMessage commonMessage=new CommonMessage();
@@ -88,7 +90,7 @@ public class UserController
             return commonMessage;
         }
     }
-    @RequestMapping(value = "saveUserDormitory",method = RequestMethod.POST)
+    @RequestMapping(value = "/saveUserDormitory",method = RequestMethod.POST)
     public CommonMessage saveUserDormitory(int userID,Address address)
     {
         CommonMessage commonMessage=new CommonMessage();
@@ -105,19 +107,24 @@ public class UserController
             return commonMessage;
         }
     }
-    @RequestMapping(value = "getUserInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserInfo",method = RequestMethod.GET)
     public UserInfo getUserInfo(int userID)
     {
         return userServiceImp.getUserInfo(userID);
     }
-    @RequestMapping(value = "getUserAddresses",method = RequestMethod.GET)
+    @RequestMapping(value = "/getUserAddresses",method = RequestMethod.GET)
     public AddressList getUserAddresses(int userID)
     {
         return userServiceImp.getUserAddresses(userID);
     }
-    @RequestMapping(value="getUserDormitory",method = RequestMethod.GET)
+    @RequestMapping(value="/getUserDormitory",method = RequestMethod.GET)
     public Address getUserDormitory(int userID)
     {
         return userServiceImp.getUserDormitory(userID);
+    }
+    @RequestMapping(value = "/getDormitoryList",method = RequestMethod.GET)
+    public ArrayList<String>getDormitoryList()
+    {
+        return userServiceImp.getDormitoryList();
     }
 }

@@ -22,6 +22,7 @@ public interface UserDao
 
     UserInfo getUserInfo(@Param("userID")int userID);//获取基本信息
     AddressList getUserAddresses(@Param("userID")int userID);//获取常用地址
+    ArrayList<String>getDormitoryList();
     Address getUserDormitory(@Param("userID")int userID);//获取宿舍楼信息
 
 }

@@ -17,5 +17,6 @@ public interface UserService
     int saveUserDormitory(int userID,Address address);
     UserInfo getUserInfo(int userID);
     AddressList getUserAddresses(int userID);
+    ArrayList<String>getDormitoryList();
     Address getUserDormitory(int userID);
 }
