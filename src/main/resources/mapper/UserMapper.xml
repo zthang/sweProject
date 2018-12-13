@@ -3,46 +3,73 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.sweproject.dao.UserDao">
-    <insert id="insert" parameterType="com.example.sweproject.bean.User" useGeneratedKeys="true" keyProperty="userID">
-        INSERT INTO USER SET userName=#{userName},password=#{password},authority=0
+    <resultMap id="userInfoMap" type="com.example.sweproject.bean.UserInfo">
+        <result column="ID" property="userID"/>
+        <result column="PWD" property="password"/>
+        <result column="AUTHORITY" property="authority"/>
+        <result column="PROFILE_STATE" property="profileState"/>
+        <result column="NICKNAME" property="nickname"/>
+        <result column="PHONE" property="phoneNumber"/>
+        <result column="MAIL" property="mail"/>
+        <result column="MOTO" property="moto"/>
+        <result column="SCHOOL_ID" property="studentID"/>
+        <result column="CREDIT" property="credit"/>
+        <result column="BALANCE" property="balance"/>
+        <result column="SEX" property="sex"/>
+        <result column="C_ID" property="communityID"/>
+        <result column="C_NAME" property="communityName"/>
+        <result column="DEPARTMENT" property="department"/>
+    </resultMap>
+    <insert id="register"  useGeneratedKeys="true" keyProperty="userID">
+        INSERT INTO LOGIN_INFO SET PWD=#{userInfo.password},NICKNAME=#{userInfo.nickname},AUTHORITY="USER",PHONE=#{userInfo.phoneNumber}
     </insert>
-    <insert id="insertUserInfo">
-        INSERT INTO USERINFO SET userID=#{userID}
-    </insert>
-    <insert id="insertUserDormitory">
-        INSERT INTO COMMUNITY SET userID=#{userID}
-    </insert>
-     <select id="getUserByUserName"  resultType="com.example.sweproject.bean.User">
-         SELECT userName,password,userID,authority FROM USER WHERE userName=#{userName}
-     </select>
+    <select id="getUserInfoByPhoneNumber"  resultMap="userInfoMap">
+        SELECT *
+        FROM LOGIN_INFO NATURAL JOIN USER_INFO
+        WHERE PHONE=#{phoneNumber}
+    </select>
+    <select id="getUserInfoByMail"  resultMap="userInfoMap">
+        SELECT *
+        FROM LOGIN_INFO NATURAL JOIN USER_INFO
+        WHERE MAIL=#{mail}
+    </select>
+    <select id="getUserInfoByNickname"  resultMap="userInfoMap">
+        SELECT *
+        FROM LOGIN_INFO NATURAL JOIN USER_INFO
+        WHERE NICKNAME=#{nickname}
+    </select>
     <update id="saveUserInfo">
-        UPDATE USERINFO SET nickname=#{userInfo.nickname},sex=#{userInfo.sex},phoneNumber=#{userInfo.phoneNumber},mail=#{userInfo.mail},studentID=#{userInfo.studentID},department=#{userInfo.department} WHERE userID=#{userID}
-    </update>
-    <update id="saveUserDormitory">
-        UPDATE COMMUNITY SET name=#{address.address},detailAddress=#{address.detailAddress},lng=#{address.lng},lat=#{address.lat} WHERE userID=#{userID}
+        UPDATE LOGIN_INFO L,USER_INFO U
+        SET L.NICKNAME=#{userInfo.nickname},L.PHONE=#{userInfo.phoneNumber},L.MAIL=#{userInfo.mail},U.MOTO=#{userInfo.moto},U.SEX=#{userInfo.sex},U.SCHOOL_ID=#{userInfo.studentID},U.C_ID=#{userInfo.communityID},U.DEPARTMENT=#{userInfo.department}
+        WHERE L.ID=#{userInfo.userID} AND U.ID=#{userInfo.userID}
     </update>
     <insert id="insertUserAddress">
-        INSERT INTO USERADDRESS SET userID=#{userID},address=#{address.address},detailAddress=#{address.detailAddress},lng=#{address.lng},lat=#{address.lat}
+        INSERT INTO USER_USUAL_ADDRESS
+        SET U_ID=#{userID},DESCRIPTION=#{address.detailAddress},L_ID=#{address.addressID}
     </insert>
-    <select id="getUserInfo" resultType="com.example.sweproject.bean.UserInfo">
-        SELECT * FROM USERINFO WHERE userID=#{userID}
+    <select id="getUserInfo" resultMap="userInfoMap">
+        SELECT *
+        FROM LOGIN_INFO NATURAL JOIN USER_INFO
+        WHERE ID=#{userID}
     </select>
-    <resultMap id="userAddressMap" type="com.example.sweproject.bean.AddressList">
-        <collection property="addressList" ofType="com.example.sweproject.bean.Address">
-            <result column="A_ID" property="addressID"/>
+    <resultMap id="userAddressMap" type="com.example.sweproject.bean.Address">
+            <result column="L_ID" property="addressID"/>
             <result column="LANDMARK" property="address"/>
             <result column="DESCRIPTION" property="detailAddress"/>
             <result column="LONGITUTE" property="lng"/>
             <result column="LATITUDE" property="lat"/>
-        </collection>
     </resultMap>
     <select id="getUserAddresses" resultMap="userAddressMap">
-        SELECT * FROM USER_LOCATION_VIEW WHERE U_ID=#{userID}
-    </select>
-    <select id="getUserDormitory">
-        SELECT C_NAME FROM USER_INFO WHERE U_ID=#{userID}
+        SELECT *
+        FROM USER_LOCATION_VIEW
+        WHERE U_ID=#{userID}
     </select>
     <select id="getDormitoryList" resultType="String">
         SELECT LANDMARK FROM LOCATIONS WHERE LOCATION_TYPE='宿舍'
+    </select>
+    <select id="getNicknameByID" resultType="String">
+        SELECT NICKNAME
+        FROM LOGIN_INFO
+        WHERE ID=#{userID}
     </select>
 </mapper>

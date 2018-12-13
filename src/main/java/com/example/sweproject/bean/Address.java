@@ -3,6 +3,7 @@ package com.example.sweproject.bean;
 public class Address
 {
     private int addressID;
+    private String type;
     private String address;
     private String detailAddress;
     private float lng;
@@ -14,6 +15,14 @@ public class Address
 
     public void setAddressID(int addressID) {
         this.addressID = addressID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getAddress() {

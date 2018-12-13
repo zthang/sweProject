@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sweproject.dao.LocationDao">
+    <resultMap id="addressMap" type="com.example.sweproject.bean.Address">
+        <result column="ID" property="addressID"/>
+        <result column="LOCATION_TYPE" property="type"/>
+        <result column="LANDMARK" property="address"/>
+        <result column="DESCRIPTION" property="detailAddress"/>
+        <result column="LONGITUTE" property="lng"/>
+        <result column="LATITUDE" property="lat"/>
+    </resultMap>
+    <select id="getLocationByName" resultMap="addressMap">
+        SELECT *
+        FROM LOCATIONS
+        WHERE LANDMARK=#{name}
+    </select>
+    <insert id="addLocation" useGeneratedKeys="true" keyProperty="addressID">
+        INSERT INTO LOCATIONS
+        SET LANDMARK=#{address.address},LONGITUTE=#{address.lng},LATITUDE=#{address.lat}
+    </insert>
+    <select id="getUserLocationByName" resultMap="addressMap">
+        SELECT *
+        FROM USER_LOCATION_VIEW
+        WHERE U_ID=#{userID} AND LANDMARK=#{address} AND DESCRIPTION=#{detailAddress}
+    </select>
+    <select id="getLocationByID" resultMap="addressMap">
+        SELECT *
+        FROM LOCATIONS
+        WHERE ID=#{locationID}
+    </select>
+    <select id="getLocationNameByID" resultType="String">
+        SELECT LANDMARK
+        FROM LOCATIONS
+        WHERE ID=#{locationID}
+    </select>
+</mapper>

@@ -4,8 +4,10 @@ import com.example.sweproject.bean.Task;
 import com.example.sweproject.bean.TaskList;
 import com.example.sweproject.dao.TaskDao;
 import com.example.sweproject.service.TaskService;
+import com.example.sweproject.utils.TaskUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service(value = "taskService")
 public class TaskServiceImp implements TaskService
@@ -22,25 +24,25 @@ public class TaskServiceImp implements TaskService
     @Override
     public TaskList getUnAcceptedTasksByID(int releaserID)
     {
-        return taskDao.getUnAcceptedTasksByID(releaserID);
+        return new TaskUtil().addInfo(taskDao.getUnAcceptedTasksByID(releaserID));
     }
 
     @Override
     public TaskList getAllTasks(int userID)
     {
-        return taskDao.getAllTasks(userID);
+        return new TaskUtil().addInfo(taskDao.getAllTasks(userID));
     }
 
     @Override
     public TaskList getAcceptedTasksByID(int releaserID)
     {
-        return taskDao.getAcceptedTasksByID(releaserID);
+        return new TaskUtil().addInfo(taskDao.getAcceptedTasksByID(releaserID));
     }
 
     @Override
     public TaskList getTasksByAccepterID(int accepterID)
     {
-        return taskDao.getTasksByAccepterID(accepterID);
+        return new TaskUtil().addInfo(taskDao.getTasksByAccepterID(accepterID));
     }
 
     @Override
@@ -52,6 +54,6 @@ public class TaskServiceImp implements TaskService
     @Override
     public Task getTaskInfoByID(int taskID)
     {
-        return taskDao.getTaskInfoByID(taskID);
+        return new TaskUtil().addInfo(taskDao.getTaskInfoByID(taskID));
     }
 }

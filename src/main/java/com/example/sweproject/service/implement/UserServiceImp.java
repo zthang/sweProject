@@ -1,8 +1,6 @@
 package com.example.sweproject.service.implement;
 
 import com.example.sweproject.bean.Address;
-import com.example.sweproject.bean.AddressList;
-import com.example.sweproject.bean.User;
 import com.example.sweproject.bean.UserInfo;
 import com.example.sweproject.dao.UserDao;
 import com.example.sweproject.service.UserService;
@@ -17,29 +15,33 @@ public class UserServiceImp implements UserService
     @Autowired
     private UserDao userDao;
     @Override
-    public int addUser(User user)
+    public int addUser(UserInfo userInfo)
     {
-        if(userDao.insert(user)==1&&userDao.insertUserInfo(user)==1&&userDao.insertUserDormitory(user)==1)
-            return 1;
-        else
-            return 0;
+        return userDao.register(userInfo);
     }
 
     @Override
-    public User getUserByUserName(String userName)
+    public UserInfo getUserInfoByPhoneNumber(String phoneNumber)
     {
-        return userDao.getUserByUserName(userName);
+        return userDao.getUserInfoByPhoneNumber(phoneNumber);
     }
 
     @Override
-    public int saveUserInfo(int userID, UserInfo userInfo)
+    public UserInfo getUserInfoByMail(String mail)
     {
-        return userDao.saveUserInfo(userID,userInfo);
+        return userDao.getUserInfoByMail(mail);
     }
+
     @Override
-    public int saveUserDormitory(int userID, Address address)
+    public UserInfo getUserInfoByNickname(String nickname)
     {
-        return userDao.saveUserDormitory(userID,address);
+        return userDao.getUserInfoByNickname(nickname);
+    }
+
+    @Override
+    public int saveUserInfo(UserInfo userInfo)
+    {
+        return userDao.saveUserInfo(userInfo);
     }
     @Override
     public int insertUserAddress(int userID, Address address)
@@ -52,7 +54,7 @@ public class UserServiceImp implements UserService
         return userDao.getUserInfo(userID);
     }
     @Override
-    public AddressList getUserAddresses(int userID)
+    public ArrayList<Address> getUserAddresses(int userID)
     {
         return userDao.getUserAddresses(userID);
     }
@@ -61,10 +63,5 @@ public class UserServiceImp implements UserService
     public ArrayList<String> getDormitoryList()
     {
         return userDao.getDormitoryList();
-    }
-    @Override
-    public Address getUserDormitory(int userID)
-    {
-        return userDao.getUserDormitory(userID);
     }
 }

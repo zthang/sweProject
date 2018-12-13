@@ -7,11 +7,11 @@ public class TaskList
     private int userID;
     private ArrayList<Task>taskList;
 
-    public int getReleaser() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setReleaser(int userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 

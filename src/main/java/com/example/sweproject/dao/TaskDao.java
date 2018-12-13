@@ -2,8 +2,10 @@ package com.example.sweproject.dao;
 
 import com.example.sweproject.bean.Task;
 import com.example.sweproject.bean.TaskList;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface TaskDao
 {
     int addNewTask(@Param("taskInfo")Task task);

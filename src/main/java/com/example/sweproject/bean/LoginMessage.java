@@ -5,9 +5,18 @@ public class LoginMessage
     private int state;
     private String message;
     private int userID;
-    private int authority;
+    private String  authority;
+    private String nickname;
 
-    public int getAuthority() {
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAuthority() {
         return authority;
     }
 
@@ -36,7 +45,7 @@ public class LoginMessage
         this.userID = userID;
     }
 
-    public void setAuthority(int authority) {
+    public void setAuthority(String authority) {
         this.authority = authority;
     }
 }

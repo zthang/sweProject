@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +31,7 @@ public class UserControllerTest {
     @Before
     public void setUp() throws Exception {
         userInfo.setNickname("1");
-        userInfo.setSex("男");
+        userInfo.setSex(0);
         userInfo.setPhoneNumber("188");
         userInfo.setMail("11");
         userInfo.setStudentID("1652");
@@ -42,7 +46,8 @@ public class UserControllerTest {
 
     @Test
     //@Transactional
-    public void addUser() {
-        userController.saveUserInfo(14,userInfo);
+    public void addUser()
+    {
+        System.out.println(DigestUtils.md5DigestAsHex("sss".getBytes()));
     }
 }
