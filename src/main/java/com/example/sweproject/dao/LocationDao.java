@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface LocationDao
 {
-    int addLocation(Address address);
+    int addLocation(@Param("address") Address address);
     Address getLocationByName(@Param("name") String name);
     Address getUserLocationByName(@Param("userID")int userID,@Param("address")String address,@Param("detailAddress")String detailAddress);
     Address getLocationByID(@Param("locationID")int locationID);

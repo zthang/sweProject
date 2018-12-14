@@ -16,9 +16,9 @@
         FROM LOCATIONS
         WHERE LANDMARK=#{name}
     </select>
-    <insert id="addLocation" parameterType="com.example.sweproject.bean.Address" useGeneratedKeys="true" keyProperty="addressID">
+    <insert id="addLocation" useGeneratedKeys="true" keyProperty="address.addressID">
         INSERT INTO LOCATIONS
-        SET LANDMARK=#{address},LONGITUTE=#{lng},LATITUDE=#{lat}
+        SET LANDMARK=#{address.address},LONGITUTE=#{address.lng},LATITUDE=#{address.lat}
     </insert>
     <select id="getUserLocationByName" resultMap="addressMap">
         SELECT *

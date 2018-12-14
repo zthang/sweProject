@@ -7,7 +7,7 @@ public class UserInfo
     private int userID;
     private String password;
     private String nickname;
-    private int sex;//1为男 2为女
+    private Integer sex;//1为男 2为女
     private String phoneNumber;
     private String mail;
     private String authority;
@@ -17,7 +17,7 @@ public class UserInfo
     private String moto;
     private int credit;
     private int balance;
-    private int communityID;
+    private Integer communityID;
     private String communityName;
 
     public int getUserID() {
@@ -44,11 +44,11 @@ public class UserInfo
         this.nickname = nickname;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -68,7 +68,7 @@ public class UserInfo
         this.mail = mail;
     }
 
-    public String  getAuthority() {
+    public String getAuthority() {
         return authority;
     }
 
@@ -124,11 +124,11 @@ public class UserInfo
         this.balance = balance;
     }
 
-    public int getCommunityID() {
+    public Integer getCommunityID() {
         return communityID;
     }
 
-    public void setCommunityID(int communityID) {
+    public void setCommunityID(Integer communityID) {
         this.communityID = communityID;
     }
 
