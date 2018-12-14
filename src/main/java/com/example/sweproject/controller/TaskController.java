@@ -53,15 +53,24 @@ public class TaskController
     public CommonMessage acceptTask(int accepterID,int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        commonMessage.setState(taskServiceImp.acceptTask(accepterID,taskID));
-        if(commonMessage.getState()==1)
+        if(taskServiceImp.getTaskInfoByID(taskID).getAccepter()==0)
         {
-            commonMessage.setMessage("接受成功，请按时完成！");
-            return commonMessage;
+            commonMessage.setState(taskServiceImp.acceptTask(accepterID,taskID));
+            if(commonMessage.getState()==1)
+            {
+                commonMessage.setMessage("接受成功，请按时完成！");
+                return commonMessage;
+            }
+            else
+            {
+                commonMessage.setMessage("接受失败！");
+                return commonMessage;
+            }
         }
         else
         {
-            commonMessage.setMessage("接受失败！");
+            commonMessage.setState(0);
+            commonMessage.setMessage("该任务已被接受！");
             return commonMessage;
         }
     }
