@@ -80,4 +80,9 @@
         FROM TASK_INFO T LEFT OUTER JOIN CONTRACT C ON T.ID=C.T_ID
         WHERE T.ID=#{taskID}
     </select>
+    <update id="updateTaskState">
+        UPDATE CONTRACT
+        SET STATE=#{state}
+        WHERE T_ID=#{taskID}
+    </update>
 </mapper>

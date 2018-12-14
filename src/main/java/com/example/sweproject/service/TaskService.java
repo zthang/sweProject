@@ -12,4 +12,5 @@ public interface TaskService
     TaskList getTasksByAccepterID(int accepterID);
     int acceptTask(int accepterID,int taskID);
     Task getTaskInfoByID(int taskID);
+    int updateTaskState(int taskID,String state);
 }

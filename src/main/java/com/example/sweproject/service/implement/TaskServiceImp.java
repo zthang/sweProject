@@ -56,4 +56,10 @@ public class TaskServiceImp implements TaskService
     {
         return new TaskUtil().addInfo(taskDao.getTaskInfoByID(taskID));
     }
+
+    @Override
+    public int updateTaskState(int taskID, String state)
+    {
+        return taskDao.updateTaskState(taskID,state);
+    }
 }

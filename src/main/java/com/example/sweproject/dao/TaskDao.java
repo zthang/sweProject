@@ -17,4 +17,6 @@ public interface TaskDao
     Task getTaskInfoByID(@Param("taskID")int taskID);
 
     int acceptTask(@Param("accepterID")int accepterID,@Param("taskID")int taskID);//某人接受了某个任务
+
+    int updateTaskState(@Param("taskID")int taskID,@Param("state")String state);//更新某个任务为某个状态
 }

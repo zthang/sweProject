@@ -24,4 +24,7 @@ public interface UserDao
     ArrayList<String>getDormitoryList();//获得宿舍列表
 
     String getNicknameByID(@Param("userID")int userID);
+
+    int addUserCredit(@Param("userID")int userID,@Param("num")int num);
+    int addUserBalance(@Param("userID")int userID,@Param("num")int num);
 }
