@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class UserInfo
 {
-    private int userID;
+    private Integer userID;
     private String password;
     private String nickname;
     private Integer sex;//1为男 2为女
@@ -15,16 +15,16 @@ public class UserInfo
     private String department;
     private String profileState;
     private String moto;
-    private int credit;
-    private int balance;
+    private Integer credit;
+    private Integer balance;
     private Integer communityID;
     private String communityName;
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
@@ -108,19 +108,19 @@ public class UserInfo
         this.moto = moto;
     }
 
-    public int getCredit() {
+    public Integer getCredit() {
         return credit;
     }
 
-    public void setCredit(int credit) {
+    public void setCredit(Integer credit) {
         this.credit = credit;
     }
 
-    public int getBalance() {
+    public Integer getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Integer balance) {
         this.balance = balance;
     }
 

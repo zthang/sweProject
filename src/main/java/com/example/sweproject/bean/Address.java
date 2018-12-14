@@ -2,18 +2,18 @@ package com.example.sweproject.bean;
 
 public class Address
 {
-    private int addressID;
+    private Integer addressID;
     private String type;
     private String address;
     private String detailAddress;
-    private float lng;
-    private float lat;
+    private Float lng;
+    private Float lat;
 
-    public int getAddressID() {
+    public Integer getAddressID() {
         return addressID;
     }
 
-    public void setAddressID(int addressID) {
+    public void setAddressID(Integer addressID) {
         this.addressID = addressID;
     }
 
@@ -41,19 +41,19 @@ public class Address
         this.detailAddress = detailAddress;
     }
 
-    public float getLng() {
+    public Float getLng() {
         return lng;
     }
 
-    public void setLng(float lng) {
+    public void setLng(Float lng) {
         this.lng = lng;
     }
 
-    public float getLat() {
+    public Float getLat() {
         return lat;
     }
 
-    public void setLat(float lat) {
+    public void setLat(Float lat) {
         this.lat = lat;
     }
 }

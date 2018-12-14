@@ -22,14 +22,14 @@ import static org.springframework.http.HttpStatus.*;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
 {
     private static Logger logger = LogManager.getLogger(GlobalExceptionHandler.class.getName());
-    /*@Override
+    @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request)
     {
         CommonMessage commonMessage=new CommonMessage();
         commonMessage.setState(0);
         commonMessage.setMessage("参数传递错误，检查参数格式！");
         return new ResponseEntity<Object>(commonMessage, NOT_EXTENDED);
-    }*/
+    }
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public CommonMessage jsonHandler(HttpServletRequest request, Exception e) throws Exception

@@ -1,7 +1,6 @@
 package com.example.sweproject;
 
 import com.example.sweproject.bean.Address;
-import com.example.sweproject.bean.User;
 import com.example.sweproject.bean.UserInfo;
 import com.example.sweproject.controller.UserController;
 import org.junit.After;
@@ -11,13 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = SweprojectApplication.class)

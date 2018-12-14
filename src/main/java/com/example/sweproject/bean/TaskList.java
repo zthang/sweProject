@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class TaskList
 {
-    private int userID;
+    private Integer userID;
     private ArrayList<Task>taskList;
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
