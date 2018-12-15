@@ -7,7 +7,7 @@ public class UserInfo
     private Integer userID;
     private String password;
     private String nickname;
-    private Integer sex;//1为男 2为女
+    private String sex;//1为男 2为女
     private String phoneNumber;
     private String mail;
     private String authority;
@@ -44,11 +44,11 @@ public class UserInfo
         this.nickname = nickname;
     }
 
-    public Integer getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
