@@ -17,4 +17,7 @@ public interface UserService
     UserInfo getUserInfo(int userID);
     ArrayList<Address> getUserAddresses(int userID);
     ArrayList<String>getDormitoryList();
+
+    int addUserCredit(int userID,int num);
+    int addUserBalance(int userID,int num);
 }

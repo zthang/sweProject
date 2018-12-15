@@ -58,10 +58,21 @@ public class UserServiceImp implements UserService
     {
         return userDao.getUserAddresses(userID);
     }
-
     @Override
     public ArrayList<String> getDormitoryList()
     {
         return userDao.getDormitoryList();
+    }
+
+    @Override
+    public int addUserCredit(int userID, int num)
+    {
+        return userDao.addUserCredit(userID,num);
+    }
+
+    @Override
+    public int addUserBalance(int userID, int num)
+    {
+        return userDao.addUserBalance(userID,num);
     }
 }

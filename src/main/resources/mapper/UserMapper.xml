@@ -72,4 +72,14 @@
         FROM LOGIN_INFO
         WHERE ID=#{userID}
     </select>
+    <update id="addUserCredit">
+        UPDATE USER_INFO
+        SET CREDIT=CREDIT+#{num}
+        WHERE ID=#{userID}
+    </update>
+    <update id="addUserBalance">
+        UPDATE USER_INFO
+        SET BALANCE=BALANCE+#{num}
+        WHERE ID=#{userID}
+    </update>
 </mapper>

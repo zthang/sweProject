@@ -100,11 +100,11 @@ public class UserController
     public CommonMessage saveUserInfo(UserInfo userInfo)
     {
         CommonMessage commonMessage=new CommonMessage();
-        if(userServiceImp.getUserInfoByNickname(userInfo.getNickname())==null||userServiceImp.getUserInfoByNickname(userInfo.getNickname()).getUserID()==userInfo.getUserID())
+        if(userServiceImp.getUserInfoByNickname(userInfo.getNickname())==null||userServiceImp.getUserInfoByNickname(userInfo.getNickname()).getUserID().equals(userInfo.getUserID()))
         {
-            if(userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null||userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber()).getUserID()==userInfo.getUserID())
+            if(userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null||userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber()).getUserID().equals(userInfo.getUserID()))
             {
-                if(userServiceImp.getUserInfoByMail(userInfo.getMail())==null||userServiceImp.getUserInfoByMail(userInfo.getMail()).getUserID()==userInfo.getUserID())
+                if(userServiceImp.getUserInfoByMail(userInfo.getMail())==null||userServiceImp.getUserInfoByMail(userInfo.getMail()).getUserID().equals(userInfo.getUserID()))
                 {
                     commonMessage.setState(userServiceImp.saveUserInfo(userInfo));
                     if(commonMessage.getState()!=0)

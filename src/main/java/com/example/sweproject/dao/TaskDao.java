@@ -4,7 +4,9 @@ import com.example.sweproject.bean.Task;
 import com.example.sweproject.bean.TaskList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @Mapper
 public interface TaskDao
 {

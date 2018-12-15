@@ -4,9 +4,11 @@ import com.example.sweproject.bean.Address;
 import com.example.sweproject.bean.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+@Repository
 @Mapper
 public interface UserDao
 {
@@ -23,7 +25,7 @@ public interface UserDao
     ArrayList<Address> getUserAddresses(@Param("userID")int userID);//获取常用地址
     ArrayList<String>getDormitoryList();//获得宿舍列表
 
-    String getNicknameByID(@Param("userID")int userID);
+    String getNicknameByID(@Param("userID")Integer userID);
 
     int addUserCredit(@Param("userID")int userID,@Param("num")int num);
     int addUserBalance(@Param("userID")int userID,@Param("num")int num);
