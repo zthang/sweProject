@@ -37,22 +37,22 @@ public class TaskController
         }
     }
     @RequestMapping(value = "/getAllTasks",method = RequestMethod.POST)
-    public ArrayList<TaskList> getALlTasks(int userID)
+    public ArrayList<Task> getALlTasks(int userID)
     {
         return taskServiceImp.getAllTasks(userID);
     }
     @RequestMapping(value = "/getUnacceptedTasksByID",method = RequestMethod.POST)
-    public TaskList getUnacceptedTasksByID(int releaserID)
+    public ArrayList<Task> getUnacceptedTasksByID(int releaserID)
     {
         return taskServiceImp.getUnAcceptedTasksByID(releaserID);
     }
     @RequestMapping(value = "/getAcceptedTasksByID",method = RequestMethod.POST)
-    public TaskList getAcceptedTasksByID(int releaserID)
+    public ArrayList<Task> getAcceptedTasksByID(int releaserID)
     {
         return taskServiceImp.getAcceptedTasksByID(releaserID);
     }
     @RequestMapping(value = "/getTasksByAccepterID",method = RequestMethod.POST)
-    public TaskList getTasksByAccepterID(int accepterID)
+    public ArrayList<Task> getTasksByAccepterID(int accepterID)
     {
         return taskServiceImp.getTasksByAccepterID(accepterID);
     }

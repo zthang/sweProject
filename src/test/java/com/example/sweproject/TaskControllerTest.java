@@ -38,24 +38,7 @@ public class TaskControllerTest {
     }
 
 
-    public void getTasks()
-    {
-        TaskList taskList=new TaskList();
-        taskList=taskController.getUnacceptedTasksByID(15);
-    }
 
-    public void getTasks1()
-    {
-        TaskList taskList=new TaskList();
-        taskList=taskController.getAcceptedTasksByID(15);
-    }
-
-
-    public void getTasks3()
-    {
-        TaskList taskList=new TaskList();
-        taskList=taskController.getTasksByAccepterID(14);
-    }
     @Test
     public void getTaskInfoByID()
     {

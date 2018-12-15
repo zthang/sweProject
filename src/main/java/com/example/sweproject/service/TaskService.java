@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public interface TaskService
 {
     int addNewTask(Task task);
-    TaskList getUnAcceptedTasksByID(int releaserID);
-    ArrayList<TaskList> getAllTasks(int userID);
-    TaskList getAcceptedTasksByID(int releaserID);
-    TaskList getTasksByAccepterID(int accepterID);
+    ArrayList<Task> getUnAcceptedTasksByID(int releaserID);
+    ArrayList<Task> getAllTasks(int userID);
+    ArrayList<Task> getAcceptedTasksByID(int releaserID);
+    ArrayList<Task> getTasksByAccepterID(int accepterID);
     int acceptTask(int accepterID,int taskID);
     Task getTaskInfoByID(int taskID);
     int updateTaskState(int taskID,String state);

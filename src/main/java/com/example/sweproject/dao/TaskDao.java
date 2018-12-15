@@ -14,10 +14,10 @@ public interface TaskDao
 {
     int addNewTask(@Param("taskInfo")Task task);
 
-    TaskList getAcceptedTasksByID(@Param("releaserID")int releaserID);//获取某人发布的已接受的任务
-    TaskList getUnAcceptedTasksByID(@Param("releaserID")int releaserID);//获取某人发布的未接受的任务
-    ArrayList<TaskList> getAllTasks(@Param("userID")int userID);//某人查看任务广场获取任务列表
-    TaskList getTasksByAccepterID(@Param("accepterID")int accepterID);//某人查看自己接受的任务（包括未完成的和已完成的）
+    ArrayList<Task> getAcceptedTasksByID(@Param("releaserID")int releaserID);//获取某人发布的已接受的任务
+    ArrayList<Task> getUnAcceptedTasksByID(@Param("releaserID")int releaserID);//获取某人发布的未接受的任务
+    ArrayList<Task> getAllTasks(@Param("userID")int userID);//某人查看任务广场获取任务列表
+    ArrayList<Task> getTasksByAccepterID(@Param("accepterID")int accepterID);//某人查看自己接受的任务（包括未完成的和已完成的）
     Task getTaskInfoByID(@Param("taskID")int taskID);
 
     int acceptTask(@Param("accepterID")int accepterID,@Param("taskID")int taskID);//某人接受了某个任务

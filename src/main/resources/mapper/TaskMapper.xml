@@ -6,7 +6,7 @@
     <insert id="addNewTask" useGeneratedKeys="true" keyProperty="taskID">
         INSERT INTO TASK_INFO SET RELEASE_DATE=#{taskInfo.releaseDate},DUE_DATE=#{taskInfo.dueDate},FINISH_DATE=#{taskInfo.leftHours},TASK_TYPE=#{taskInfo.type},DESCRIPTION_1=#{taskInfo.description_1},DESCRIPTION_2=#{taskInfo.description_2},RELEASER=#{taskInfo.releaser},BONOUS_TYPE=#{taskInfo.bonousType},BONOUS_AMOUNT=#{taskInfo.bonousAmount},BONOUS_DESCRIPTION=#{taskInfo.bonousDescription},A_ID_1=#{taskInfo.fromLocation},A_ID_2=#{taskInfo.toLocation},TITLE=#{taskInfo.title}
     </insert>
-    <resultMap id="taskInfoMap" type="com.example.sweproject.bean.Task">
+    <resultMap id="taskMap" type="com.example.sweproject.bean.Task">
             <result column="ID" property="taskID"/>
             <result column="TASK_TYPE" property="type"/>
             <result column="TITLE" property="title"/>
@@ -25,34 +25,7 @@
             <result column="ACCEPTER_ID" property="accepter"/>
             <result column="STATE" property="state"/>
     </resultMap>
-    <resultMap id="taskMap" type="com.example.sweproject.bean.TaskList">
-        <collection property="taskList" ofType="com.example.sweproject.bean.Task" javaType="java.util.ArrayList">
-            <result column="ID" property="taskID"/>
-            <result column="TASK_TYPE" property="type"/>
-            <result column="TITLE" property="title"/>
-            <result column="RELEASER" property="releaser"/>
-            <result column="RELEASE_DATE" property="releaseDate"/>
-            <result column="DUE_DATE" property="dueDate"/>
-            <result column="FINISH_DATE" property="leftHours"/>
-            <result column="A_ID_1" property="fromLocation"/>
-            <result column="A_ID_2" property="toLocation"/>
-            <result column="DESCRIPTION_1" property="description_1"/>
-            <result column="DESCRIPTION_2" property="description_2"/>
-            <result column="BONOUS_TYPE" property="bonousType"/>
-            <result column="BONOUS_AMOUNT" property="bonousAmount"/>
-            <result column="BONOUS_DESCRIPTION" property="bonousDescription"/>
-            <result column="CREATE_DATE" property="acceptedDate"/>
-            <result column="ACCEPTER_ID" property="accepter"/>
-            <result column="STATE" property="state"/>
-        </collection>
-    </resultMap>
-    <resultMap id="taskMap_R" type="com.example.sweproject.bean.TaskList" extends="taskMap">
-        <result column="RELEASER" property="userID"/>
-    </resultMap>
-    <resultMap id="taskMap_A" type="com.example.sweproject.bean.TaskList" extends="taskMap">
-        <result column="ACCEPTER_ID" property="userID"/>
-    </resultMap>
-    <select id="getAcceptedTasksByID" resultMap="taskMap_R">
+    <select id="getAcceptedTasksByID" resultMap="taskMap">
         SELECT *
         FROM TASK_INFO T JOIN CONTRACT C ON T.ID=C.T_ID
         WHERE RELEASER=#{releaserID}
@@ -62,12 +35,12 @@
         FROM TASK_INFO NATURAL JOIN WAITING_TASK
         WHERE RELEASER=#{releaserID}
     </select>
-    <select id="getAllTasks" resultMap="taskMap_R">
+    <select id="getAllTasks" resultMap="taskMap">
         SELECT *
         FROM TASK_INFO NATURAL JOIN WAITING_TASK
         WHERE RELEASER!=#{userID}
     </select>
-    <select id="getTasksByAccepterID" resultMap="taskMap_A">
+    <select id="getTasksByAccepterID" resultMap="taskMap">
         SELECT *
         FROM TASK_INFO T JOIN CONTRACT C ON T.ID=C.T_ID
         WHERE ACCEPTER_ID=#{accepterID}
@@ -75,7 +48,7 @@
     <insert id="acceptTask">
         INSERT INTO CONTRACT SET ACCEPTER_ID=#{accepterID},T_ID=#{taskID}
     </insert>
-    <select id="getTaskInfoByID" resultMap="taskInfoMap">
+    <select id="getTaskInfoByID" resultMap="taskMap">
         SELECT *
         FROM TASK_INFO T LEFT OUTER JOIN CONTRACT C ON T.ID=C.T_ID
         WHERE T.ID=#{taskID}

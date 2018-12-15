@@ -26,30 +26,15 @@ public class TaskUtil
         taskUtil.userDao=this.userDao;
         taskUtil.locationDao=this.locationDao;
     }
-    public TaskList addInfo(TaskList taskList)
+    public ArrayList<Task> addInfo(ArrayList<Task> taskList)
     {
-        if(taskList.getTaskList().size()!=0)
-            for(Task t:taskList.getTaskList())
+        if(taskList.size()!=0)
+            for(Task t:taskList)
             {
                 t.setNickname_r(taskUtil.userDao.getNicknameByID(t.getReleaser()));
                 t.setNickname_a(taskUtil.userDao.getNicknameByID(t.getAccepter()));
                 t.setFrom(taskUtil.locationDao.getLocationNameByID(t.getFromLocation()));
                 t.setTo(taskUtil.locationDao.getLocationNameByID(t.getToLocation()));
-            }
-        return taskList;
-    }
-    public ArrayList<TaskList> addInfo(ArrayList<TaskList> taskList)
-    {
-        if(taskList.size()!=0)
-            for(TaskList temp:taskList)
-            {
-                for(Task t:temp.getTaskList())
-                {
-                    t.setNickname_r(taskUtil.userDao.getNicknameByID(t.getReleaser()));
-                    t.setNickname_a(taskUtil.userDao.getNicknameByID(t.getAccepter()));
-                    t.setFrom(taskUtil.locationDao.getLocationNameByID(t.getFromLocation()));
-                    t.setTo(taskUtil.locationDao.getLocationNameByID(t.getToLocation()));
-                }
             }
         return taskList;
     }

@@ -24,25 +24,25 @@ public class TaskServiceImp implements TaskService
     }
 
     @Override
-    public TaskList getUnAcceptedTasksByID(int releaserID)
+    public ArrayList<Task> getUnAcceptedTasksByID(int releaserID)
     {
         return new TaskUtil().addInfo(taskDao.getUnAcceptedTasksByID(releaserID));
     }
 
     @Override
-    public ArrayList<TaskList> getAllTasks(int userID)
+    public ArrayList<Task> getAllTasks(int userID)
     {
         return new TaskUtil().addInfo(taskDao.getAllTasks(userID));
     }
 
     @Override
-    public TaskList getAcceptedTasksByID(int releaserID)
+    public ArrayList<Task> getAcceptedTasksByID(int releaserID)
     {
         return new TaskUtil().addInfo(taskDao.getAcceptedTasksByID(releaserID));
     }
 
     @Override
-    public TaskList getTasksByAccepterID(int accepterID)
+    public ArrayList<Task> getTasksByAccepterID(int accepterID)
     {
         return new TaskUtil().addInfo(taskDao.getTasksByAccepterID(accepterID));
     }
