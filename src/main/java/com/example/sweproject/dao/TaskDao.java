@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 @Mapper
 public interface TaskDao
@@ -14,7 +16,7 @@ public interface TaskDao
 
     TaskList getAcceptedTasksByID(@Param("releaserID")int releaserID);//获取某人发布的已接受的任务
     TaskList getUnAcceptedTasksByID(@Param("releaserID")int releaserID);//获取某人发布的未接受的任务
-    TaskList getAllTasks(@Param("userID")int userID);//某人查看任务广场获取任务列表
+    ArrayList<TaskList> getAllTasks(@Param("userID")int userID);//某人查看任务广场获取任务列表
     TaskList getTasksByAccepterID(@Param("accepterID")int accepterID);//某人查看自己接受的任务（包括未完成的和已完成的）
     Task getTaskInfoByID(@Param("taskID")int taskID);
 

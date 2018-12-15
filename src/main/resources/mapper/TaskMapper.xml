@@ -57,7 +57,7 @@
         FROM TASK_INFO T JOIN CONTRACT C ON T.ID=C.T_ID
         WHERE RELEASER=#{releaserID}
     </select>
-    <select id="getUnAcceptedTasksByID" resultMap="taskMap_R">
+    <select id="getUnAcceptedTasksByID" resultMap="taskMap">
         SELECT *
         FROM TASK_INFO NATURAL JOIN WAITING_TASK
         WHERE RELEASER=#{releaserID}

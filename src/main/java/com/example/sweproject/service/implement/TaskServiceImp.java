@@ -8,6 +8,8 @@ import com.example.sweproject.utils.TaskUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 
 @Service(value = "taskService")
 public class TaskServiceImp implements TaskService
@@ -28,7 +30,7 @@ public class TaskServiceImp implements TaskService
     }
 
     @Override
-    public TaskList getAllTasks(int userID)
+    public ArrayList<TaskList> getAllTasks(int userID)
     {
         return new TaskUtil().addInfo(taskDao.getAllTasks(userID));
     }

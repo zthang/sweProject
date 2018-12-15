@@ -50,11 +50,6 @@ public class TaskControllerTest {
         taskList=taskController.getAcceptedTasksByID(15);
     }
 
-    public void getTasks2()
-    {
-        TaskList taskList=new TaskList();
-        taskList=taskController.getALlTasks(15);
-    }
 
     public void getTasks3()
     {

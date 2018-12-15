@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 
 @Component
 public class TaskUtil
@@ -34,6 +35,21 @@ public class TaskUtil
                 t.setNickname_a(taskUtil.userDao.getNicknameByID(t.getAccepter()));
                 t.setFrom(taskUtil.locationDao.getLocationNameByID(t.getFromLocation()));
                 t.setTo(taskUtil.locationDao.getLocationNameByID(t.getToLocation()));
+            }
+        return taskList;
+    }
+    public ArrayList<TaskList> addInfo(ArrayList<TaskList> taskList)
+    {
+        if(taskList.size()!=0)
+            for(TaskList temp:taskList)
+            {
+                for(Task t:temp.getTaskList())
+                {
+                    t.setNickname_r(taskUtil.userDao.getNicknameByID(t.getReleaser()));
+                    t.setNickname_a(taskUtil.userDao.getNicknameByID(t.getAccepter()));
+                    t.setFrom(taskUtil.locationDao.getLocationNameByID(t.getFromLocation()));
+                    t.setTo(taskUtil.locationDao.getLocationNameByID(t.getToLocation()));
+                }
             }
         return taskList;
     }
