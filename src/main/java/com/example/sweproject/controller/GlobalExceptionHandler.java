@@ -1,6 +1,7 @@
 package com.example.sweproject.controller;
 
 import com.example.sweproject.bean.CommonMessage;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public CommonMessage jsonHandler(HttpServletRequest request, Exception e) throws Exception
+    public CommonMessage jsonHandler(HttpServletRequest request, Exception e)
     {
         CommonMessage commonMessage = new CommonMessage();
         commonMessage.setMessage(e.getMessage());
@@ -40,7 +41,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
         log(e, request);
         return commonMessage;
     }
-
+    @ExceptionHandler(value = ExpiredJwtException.class)
+    @ResponseBody
+    public CommonMessage TokenException(HttpServletRequest request, Exception e)
+    {
+        CommonMessage commonMessage = new CommonMessage();
+        commonMessage.setMessage(e.getMessage());
+        commonMessage.setState(0);
+        log(e, request);
+        return commonMessage;
+    }
     private void log(Exception ex, HttpServletRequest request)
     {
         logger.error("************************异常开始*******************************");

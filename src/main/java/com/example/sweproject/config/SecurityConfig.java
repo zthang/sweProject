@@ -1,6 +1,7 @@
 package com.example.sweproject.config;
 
-import com.example.sweproject.security.JWTAuthenticationEntryPoint;
+import com.example.sweproject.security.CustomAccessDeineHandler;
+import com.example.sweproject.security.CustomAuthenticationEntryPoint;
 import com.example.sweproject.security.JWTAuthenticationFilter;
 import com.example.sweproject.security.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -50,10 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // 不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                //403信息
-                .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint());
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .accessDeniedHandler(new CustomAccessDeineHandler());
+
     }
 
     @Bean

@@ -1,7 +1,6 @@
 package com.example.sweproject.security;
 
 import com.alibaba.druid.support.json.JSONUtils;
-import com.example.sweproject.bean.LoginMessage;
 import com.example.sweproject.bean.User;
 import com.example.sweproject.utils.JwtTokenUtils;
 
@@ -51,7 +50,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 所以就是JwtUser啦
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
         boolean isRemember = rememberMe.get() == 1;
-        System.out.println("jwtUser:" + jwtUser.toString());
         String role = "";
         // 因为在JwtUser中存了权限信息，可以直接获取，由于只有一个角色就这么干了
         Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
