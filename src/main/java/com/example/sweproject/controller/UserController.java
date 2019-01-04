@@ -1,13 +1,11 @@
 package com.example.sweproject.controller;
 
 import com.example.sweproject.bean.*;
-import com.example.sweproject.service.implement.LocationServiceImp;
-import com.example.sweproject.service.implement.UserServiceImp;
+import com.example.sweproject.service.LocationService;
+import com.example.sweproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -15,21 +13,21 @@ import java.util.ArrayList;
 public class UserController
 {
     @Autowired
-    private UserServiceImp userServiceImp;
+    private UserService userService;
     @Autowired
-    private LocationServiceImp locationServiceImp;
+    private LocationService locationService;
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public CommonMessage addUser(UserInfo userInfo)
     {
         CommonMessage message=new CommonMessage();
-        if(userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null&&userServiceImp.getUserInfoByNickname(userInfo.getNickname())==null)
+        if(userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null&& userService.getUserInfoByNickname(userInfo.getNickname())==null)
         {
             userInfo.setPassword(DigestUtils.md5DigestAsHex(userInfo.getPassword().getBytes()));
-            message.setState(userServiceImp.addUser(userInfo));
+            message.setState(userService.addUser(userInfo));
             message.setMessage("注册成功！");
             return message;
         }
-        else if(userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())!=null)
+        else if(userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())!=null)
         {
             message.setState(0);
             message.setMessage("已存在该手机号，注册失败！");
@@ -46,7 +44,7 @@ public class UserController
     public LoginMessage loginByPhone(UserInfo userInfo)
     {
         LoginMessage loginMessage=new LoginMessage();
-        UserInfo temp=userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber());
+        UserInfo temp= userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber());
         if(temp==null)
         {
             loginMessage.setState(0);
@@ -73,7 +71,7 @@ public class UserController
     public LoginMessage loginByMail(UserInfo userInfo)
     {
         LoginMessage loginMessage=new LoginMessage();
-        UserInfo temp=userServiceImp.getUserInfoByMail(userInfo.getMail());
+        UserInfo temp= userService.getUserInfoByMail(userInfo.getMail());
         if(temp==null)
         {
             loginMessage.setState(0);
@@ -100,13 +98,13 @@ public class UserController
     public CommonMessage saveUserInfo(UserInfo userInfo)
     {
         CommonMessage commonMessage=new CommonMessage();
-        if(userServiceImp.getUserInfoByNickname(userInfo.getNickname())==null||userServiceImp.getUserInfoByNickname(userInfo.getNickname()).getUserID().equals(userInfo.getUserID()))
+        if(userService.getUserInfoByNickname(userInfo.getNickname())==null|| userService.getUserInfoByNickname(userInfo.getNickname()).getUserID().equals(userInfo.getUserID()))
         {
-            if(userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null||userServiceImp.getUserInfoByPhoneNumber(userInfo.getPhoneNumber()).getUserID().equals(userInfo.getUserID()))
+            if(userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null|| userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber()).getUserID().equals(userInfo.getUserID()))
             {
-                if(userServiceImp.getUserInfoByMail(userInfo.getMail())==null||userServiceImp.getUserInfoByMail(userInfo.getMail()).getUserID().equals(userInfo.getUserID()))
+                if(userService.getUserInfoByMail(userInfo.getMail())==null|| userService.getUserInfoByMail(userInfo.getMail()).getUserID().equals(userInfo.getUserID()))
                 {
-                    commonMessage.setState(userServiceImp.saveUserInfo(userInfo));
+                    commonMessage.setState(userService.saveUserInfo(userInfo));
                     if(commonMessage.getState()!=0)
                     {
                         commonMessage.setMessage("保存成功！");
@@ -143,11 +141,11 @@ public class UserController
     public CommonMessage insertUserAddress(int userID,Address address)
     {
         CommonMessage commonMessage=new CommonMessage();
-        Address temp=locationServiceImp.getLocationByName(address.getAddress());
+        Address temp= locationService.getLocationByName(address.getAddress());
         if(temp==null)
         {
-            locationServiceImp.addLocation(address);
-            commonMessage.setState(userServiceImp.insertUserAddress(userID,address));
+            locationService.addLocation(address);
+            commonMessage.setState(userService.insertUserAddress(userID,address));
             if(commonMessage.getState()==1)
             {
                 commonMessage.setMessage("插入地址成功！");
@@ -162,9 +160,9 @@ public class UserController
         else
         {
             address.setAddressID(temp.getAddressID());
-            if(locationServiceImp.getUserLocationByName(userID,address.getAddress(),address.getDetailAddress())==null)
+            if(locationService.getUserLocationByName(userID,address.getAddress(),address.getDetailAddress())==null)
             {
-                commonMessage.setState(userServiceImp.insertUserAddress(userID,address));
+                commonMessage.setState(userService.insertUserAddress(userID,address));
                 if(commonMessage.getState()==1)
                 {
                     commonMessage.setMessage("插入地址成功！");
@@ -188,16 +186,16 @@ public class UserController
     @RequestMapping(value = "/getUserInfo",method = RequestMethod.POST)
     public UserInfo getUserInfo(int userID)
     {
-        return userServiceImp.getUserInfo(userID);
+        return userService.getUserInfo(userID);
     }
     @RequestMapping(value = "/getUserAddresses",method = RequestMethod.POST)
     public ArrayList<Address> getUserAddresses(int userID)
     {
-        return userServiceImp.getUserAddresses(userID);
+        return userService.getUserAddresses(userID);
     }
     @RequestMapping(value = "/getDormitoryList",method = RequestMethod.POST)
     public ArrayList<String>getDormitoryList()
     {
-        return userServiceImp.getDormitoryList();
+        return userService.getDormitoryList();
     }
 }

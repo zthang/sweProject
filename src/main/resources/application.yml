@@ -43,3 +43,14 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
     returnPageInfo: check
+
+# 异步线程配置
+# 配置核心线程数
+async.executor.thread:
+    core_pool_size : 5
+    # 配置最大线程数
+    max_pool_size : 5
+    # 配置队列大小
+    queue_capacity : 99999
+    # 配置线程池中的线程的名称前缀
+    name.prefix : async-service-

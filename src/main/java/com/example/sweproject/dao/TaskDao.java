@@ -1,7 +1,6 @@
 package com.example.sweproject.dao;
 
 import com.example.sweproject.bean.Task;
-import com.example.sweproject.bean.TaskList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,4 +22,5 @@ public interface TaskDao
     int acceptTask(@Param("accepterID")int accepterID,@Param("taskID")int taskID);//某人接受了某个任务
 
     int updateTaskState(@Param("taskID")int taskID,@Param("state")String state);//更新某个任务为某个状态
+
 }

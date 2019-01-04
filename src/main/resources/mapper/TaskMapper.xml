@@ -25,6 +25,7 @@
             <result column="ACCEPTER_ID" property="accepter"/>
             <result column="STATE" property="state"/>
     </resultMap>
+
     <select id="getAcceptedTasksByID" resultMap="taskMap">
         SELECT *
         FROM TASK_INFO T JOIN CONTRACT C ON T.ID=C.T_ID

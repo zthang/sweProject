@@ -1,8 +1,8 @@
 package com.example.sweproject;
 
 import com.example.sweproject.bean.Task;
-import com.example.sweproject.bean.TaskList;
 import com.example.sweproject.controller.TaskController;
+import com.example.sweproject.dao.TaskDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +12,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = SweprojectApplication.class)
 public class TaskControllerTest {
     @Autowired
     private TaskController taskController;
+    @Autowired
+    private TaskDao taskDao;
 
     Task task =new Task();
     @Before
@@ -42,6 +43,5 @@ public class TaskControllerTest {
     @Test
     public void getTaskInfoByID()
     {
-        Task task=taskController.getTaskInfoByID(7);
     }
 }

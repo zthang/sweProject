@@ -1,7 +1,6 @@
 package com.example.sweproject.utils;
 
 import com.example.sweproject.bean.Task;
-import com.example.sweproject.bean.TaskList;
 import com.example.sweproject.dao.LocationDao;
 import com.example.sweproject.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;

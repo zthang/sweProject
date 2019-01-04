@@ -2,10 +2,8 @@ package com.example.sweproject.controller;
 
 import com.example.sweproject.bean.CommonMessage;
 import com.example.sweproject.bean.Task;
-import com.example.sweproject.bean.TaskList;
+import com.example.sweproject.service.TaskService;
 import com.example.sweproject.service.UserService;
-import com.example.sweproject.service.implement.TaskServiceImp;
-import com.example.sweproject.service.implement.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,14 +15,14 @@ import java.util.ArrayList;
 public class TaskController
 {
     @Autowired
-    private TaskServiceImp taskServiceImp;
+    private TaskService taskService;
     @Autowired
-    private UserServiceImp userServiceImp;
+    private UserService userService;
     @RequestMapping(value = "/addNewTask",method = RequestMethod.POST)
     public CommonMessage addNewTask(Task task)
     {
         CommonMessage commonMessage=new CommonMessage();
-        commonMessage.setState(taskServiceImp.addNewTask(task));
+        commonMessage.setState(taskService.addNewTask(task));
         if(commonMessage.getState()==1)
         {
             commonMessage.setMessage("发布成功！");
@@ -39,30 +37,30 @@ public class TaskController
     @RequestMapping(value = "/getAllTasks",method = RequestMethod.POST)
     public ArrayList<Task> getALlTasks(int userID)
     {
-        return taskServiceImp.getAllTasks(userID);
+        return taskService.getAllTasks(userID);
     }
     @RequestMapping(value = "/getUnacceptedTasksByID",method = RequestMethod.POST)
     public ArrayList<Task> getUnacceptedTasksByID(int releaserID)
     {
-        return taskServiceImp.getUnAcceptedTasksByID(releaserID);
+        return taskService.getUnAcceptedTasksByID(releaserID);
     }
     @RequestMapping(value = "/getAcceptedTasksByID",method = RequestMethod.POST)
     public ArrayList<Task> getAcceptedTasksByID(int releaserID)
     {
-        return taskServiceImp.getAcceptedTasksByID(releaserID);
+        return taskService.getAcceptedTasksByID(releaserID);
     }
     @RequestMapping(value = "/getTasksByAccepterID",method = RequestMethod.POST)
     public ArrayList<Task> getTasksByAccepterID(int accepterID)
     {
-        return taskServiceImp.getTasksByAccepterID(accepterID);
+        return taskService.getTasksByAccepterID(accepterID);
     }
     @RequestMapping(value = "/acceptTask",method = RequestMethod.POST)
     public CommonMessage acceptTask(int accepterID,int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        if(taskServiceImp.getTaskInfoByID(taskID).getAccepter()==0)
+        if(taskService.getTaskInfoByID(taskID).getAccepter()==0)
         {
-            commonMessage.setState(taskServiceImp.acceptTask(accepterID,taskID));
+            commonMessage.setState(taskService.acceptTask(accepterID,taskID));
             if(commonMessage.getState()==1)
             {
                 commonMessage.setMessage("接受成功，请按时完成！");
@@ -84,13 +82,13 @@ public class TaskController
     @RequestMapping(value = "getTaskInfoByID",method = RequestMethod.POST)
     public Task getTaskInfoByID(int taskID)
     {
-        return taskServiceImp.getTaskInfoByID(taskID);
+        return taskService.getTaskInfoByID(taskID);
     }
     @RequestMapping(value = "relCompleteTask",method = RequestMethod.POST)
     public CommonMessage RelCompleteTask(int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -100,14 +98,14 @@ public class TaskController
         if(temp.getState().equals("在进行")||temp.getState().equals("待审核")||temp.getState().equals("已超时")||temp.getState().equals("超时待审核"))
         {
             //创建一条任务状态记录
-            userServiceImp.addUserBalance(temp.getReleaser(),-temp.getBonousAmount());
-            userServiceImp.addUserBalance(temp.getAccepter(),temp.getBonousAmount());
-            userServiceImp.addUserCredit(temp.getReleaser(),10);//基础信誉分增加              //积分更改 发布人信誉分增加
+            userService.addUserBalance(temp.getReleaser(),-temp.getBonousAmount());
+            userService.addUserBalance(temp.getAccepter(),temp.getBonousAmount());
+            userService.addUserCredit(temp.getReleaser(),10);//基础信誉分增加              //积分更改 发布人信誉分增加
             if(temp.getState().equals("在进行")||temp.getState().equals("待审核"))//若任务未超时 接受人信誉分增加10
-                userServiceImp.addUserCredit(temp.getAccepter(),10);//基础信誉分增加10
+                userService.addUserCredit(temp.getAccepter(),10);//基础信誉分增加10
             else
-                userServiceImp.addUserCredit(temp.getAccepter(),5);//基础信誉分增加 超时只增加5
-            taskServiceImp.updateTaskState(taskID,"已完成");
+                userService.addUserCredit(temp.getAccepter(),5);//基础信誉分增加 超时只增加5
+            taskService.updateTaskState(taskID,"已完成");
             commonMessage.setState(1);
             commonMessage.setMessage("ok!👌");
             return commonMessage;
@@ -125,7 +123,7 @@ public class TaskController
         //创建一条任务状态记录
 
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -133,9 +131,9 @@ public class TaskController
             return commonMessage;
         }
         if(temp.getState().equals("在进行"))//如果未超时 更改状态为待审核
-            commonMessage.setState(taskServiceImp.updateTaskState(taskID,"待审核"));
+            commonMessage.setState(taskService.updateTaskState(taskID,"待审核"));
         else if(temp.getState().equals("已超时"))//如果超时 更改状态为超时待审核
-            commonMessage.setState(taskServiceImp.updateTaskState(taskID,"超时待审核"));
+            commonMessage.setState(taskService.updateTaskState(taskID,"超时待审核"));
         else
         {
             commonMessage.setState(0);
@@ -154,7 +152,7 @@ public class TaskController
         //创建一条任务状态记录
 
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -165,7 +163,7 @@ public class TaskController
         {
             if(temp.getState()==null)//任务未接受时取消任务 直接取消
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"已取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"已取消"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("任务取消成功！");
                 else
@@ -174,7 +172,7 @@ public class TaskController
             }
             else if(temp.getState().equals("在进行"))//在进行时取消 更改任务状态为发布者取消 等待对方回应
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"发布者取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"发布者取消"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("操作成功，请等待对方回应！");
                 else
@@ -184,10 +182,10 @@ public class TaskController
             else if(temp.getState().equals("已超时"))//超时情况下直接取消 接受人信誉减少
             {
                 //写入任务日志 发布者选择取消任务 任务终止
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"已取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"已取消"));
                 if(commonMessage.getState()==1)
                 {
-                    userServiceImp.addUserCredit(temp.getAccepter(),-10);
+                    userService.addUserCredit(temp.getAccepter(),-10);
                     commonMessage.setMessage("取消成功！");
                 }
                 else
@@ -205,7 +203,7 @@ public class TaskController
         {
             if(temp.getState().equals("在进行"))//任务进行中取消 状态变为接受者取消 等待对方回应
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"接受者取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"接受者取消"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("操作成功，请等待对方回应！");
                 else
@@ -215,10 +213,10 @@ public class TaskController
             else if(temp.getState().equals("已超时"))//超时状态下取消 直接取消 接受人信誉分减少10
             {
                 //写入任务日志 接受者选择取消任务 任务终止
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"已取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"已取消"));
                 if(commonMessage.getState()==1)
                 {
-                    userServiceImp.addUserCredit(temp.getAccepter(),10*-1);
+                    userService.addUserCredit(temp.getAccepter(),10*-1);
                     commonMessage.setMessage("取消成功！");
                 }
                 else
@@ -243,7 +241,7 @@ public class TaskController
     public CommonMessage relUnacceptComplete(int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -253,7 +251,7 @@ public class TaskController
         if(temp.getState().equals("待审核")||temp.getState().equals("超时待审核"))
         {
             //向对方发送消息 记录日志 发布人不同意 任务变为异常状态
-            commonMessage.setState(taskServiceImp.updateTaskState(taskID,"异常"));
+            commonMessage.setState(taskService.updateTaskState(taskID,"异常"));
             if(commonMessage.getState()==1)
                 commonMessage.setMessage("操作成功，请等待社区管理员介入！");
             else
@@ -271,7 +269,7 @@ public class TaskController
     public CommonMessage acceptCancel(int userID,int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -283,7 +281,7 @@ public class TaskController
             if(temp.getReleaser().equals(userID))//发布人接受取消申请
             {
                 //向对方发送消息 记录日志 发布人同意 任务变为已取消
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"已取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"已取消"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("任务取消成功！");
                 else
@@ -301,7 +299,7 @@ public class TaskController
         {
             if(temp.getAccepter().equals(userID))//接受者接受取消申请
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"已取消"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"已取消"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("任务取消成功！");
                 else
@@ -326,7 +324,7 @@ public class TaskController
     public CommonMessage unacceptCancel(int userID,int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -338,7 +336,7 @@ public class TaskController
             if(temp.getReleaser().equals(userID))//发布人不接受取消申请
             {
                 //向对方发送消息 记录日志 发布人不同意 任务变为在进行
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"在进行"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"在进行"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("操作成功！");
                 else
@@ -356,7 +354,7 @@ public class TaskController
         {
             if(temp.getAccepter().equals(userID))//接受者不接受取消申请
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"在进行"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"在进行"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("操作成功！");
                 else
@@ -381,7 +379,7 @@ public class TaskController
     public CommonMessage undoCancel(int userID,int taskID)
     {
         CommonMessage commonMessage=new CommonMessage();
-        Task temp=taskServiceImp.getTaskInfoByID(taskID);
+        Task temp= taskService.getTaskInfoByID(taskID);
         if(temp==null)
         {
             commonMessage.setState(0);
@@ -392,7 +390,7 @@ public class TaskController
         {
             if(temp.getReleaser().equals(userID))//检查id是否是发布者
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"在进行"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"在进行"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("撤销成功！");
                 else
@@ -410,7 +408,7 @@ public class TaskController
         {
             if(temp.getAccepter().equals(userID))
             {
-                commonMessage.setState(taskServiceImp.updateTaskState(taskID,"在进行"));
+                commonMessage.setState(taskService.updateTaskState(taskID,"在进行"));
                 if(commonMessage.getState()==1)
                     commonMessage.setMessage("撤销成功！");
                 else
