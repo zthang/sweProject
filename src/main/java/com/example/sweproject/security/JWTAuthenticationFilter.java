@@ -72,7 +72,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         map.put("userID",jwtUser.getId());
         map.put("nickname",jwtUser.getNickname());
         response.getWriter().write(JSONUtils.toJSONString(map));
-        WebSocketServer.sendMessageTo("lalala","14");
     }
 
     // 这是验证失败时候调用的方法

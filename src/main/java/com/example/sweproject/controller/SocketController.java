@@ -1,11 +1,18 @@
 package com.example.sweproject.controller;
 
 import com.example.sweproject.socket.WebSocketServer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import static com.example.sweproject.socket.WebSocketServer.sendMessageTo;
 
 @RestController
 public class SocketController {
@@ -14,16 +21,14 @@ public class SocketController {
 
     @RequestMapping("many")
     public String helloManyWebSocket(){
-        //向所有人发送消息
-        //myWebSocket.sendMessage("你好~！");
+
 
         return "发送成功";
     }
 
     @RequestMapping("one")
     public String helloOneWebSocket(String sessionId) throws IOException {
-        //向某个人发送消息
-        //myWebSocket.sendMessage(sessionId,"你好~！，单个用户");
+        sendMessageTo("ooo",sessionId);
 
         return "发送成功";
     }

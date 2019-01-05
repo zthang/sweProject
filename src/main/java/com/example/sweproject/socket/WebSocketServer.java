@@ -6,6 +6,10 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 @Component
@@ -19,16 +23,29 @@ public class WebSocketServer {
     private String currentUser;
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
-
+    //保存离线消息
+    public static Map<String,CopyOnWriteArrayList<String>>messageList=new HashMap<>();
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
-    public void onOpen(@PathParam("userCode") String userCode, Session session) {
+    public void onOpen(@PathParam("userCode") String userCode, Session session)throws IOException {
         this.currentUser = userCode;
         this.session = session;
         webSocketSet.add(this);     //加入set中
         addOnlineCount();           //在线数加1
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount() +",userCode:"+userCode);
+
+        //如果该用户有未接收的离线消息
+        if(WebSocketServer.messageList.get(userCode)!=null)
+        {
+            CopyOnWriteArrayList<String> userMessages=WebSocketServer.messageList.get(userCode);
+            for(String message:userMessages)
+            {
+                sendMessageTo(message,userCode);
+                System.out.println(userCode+"发送成功");
+            }
+            WebSocketServer.messageList.remove(userCode);
+        }
     }
 
     /**
@@ -72,11 +89,30 @@ public class WebSocketServer {
      * @throws IOException
      */
     public static void sendMessageTo(String message,String userCode) throws IOException {
-        for (WebSocketServer item : webSocketSet) {
-            if(item.currentUser.equals(userCode)){
+        for (WebSocketServer item : webSocketSet)
+        {
+            if (item.currentUser.equals(userCode))
+            {
                 item.session.getBasicRemote().sendText(message);
+                return;
             }
         }
+            //如果没有该用户 则为离线消息
+
+            //如果该用户的离线队列还不存在
+            if(messageList.get(userCode)==null)
+            {
+                CopyOnWriteArrayList userMessages=new CopyOnWriteArrayList();
+                userMessages.add(message);
+                messageList.put(userCode,userMessages);
+                System.out.println(userCode+"列表创建");
+            }
+            else
+            {
+                CopyOnWriteArrayList userMessages=messageList.get(userCode);
+                userMessages.add(message);
+                System.out.println(userCode+"新增信息");
+            }
     }
 
     /**
