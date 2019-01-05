@@ -75,4 +75,15 @@ public class UserServiceImp implements UserService
     {
         return userDao.addUserBalance(userID,num);
     }
+
+    @Override
+    public int setUserPic(int userID, String url)
+    {
+        return userDao.setUserPic(userID,url);
+    }
+
+    @Override
+    public String getUserPic(int userID) {
+        return userDao.getUserPic(userID);
+    }
 }

@@ -29,4 +29,7 @@ public interface UserDao
 
     int addUserCredit(@Param("userID")int userID,@Param("num")int num);
     int addUserBalance(@Param("userID")int userID,@Param("num")int num);
+
+    int setUserPic(@Param("userID")int userID,@Param("url")String url);
+    String getUserPic(@Param("userID")int userID);
 }

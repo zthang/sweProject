@@ -20,4 +20,8 @@ public interface UserService
 
     int addUserCredit(int userID,int num);
     int addUserBalance(int userID,int num);
+
+    int setUserPic(int userID,String url);
+    String getUserPic(int userID);
+
 }

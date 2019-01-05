@@ -82,4 +82,14 @@
         SET BALANCE=BALANCE+#{num}
         WHERE ID=#{userID}
     </update>
+    <update id="setUserPic">
+        UPDATE USER_INFO
+        SET HEAD_PORTRAIT=#{url}
+        WHERE ID=#{userID}
+    </update>
+    <select id="getUserPic" resultType="String">
+        SELECT HEAD_PORTRAIT
+        FROM USER_INFO
+        WHERE ID=#{userID}
+    </select>
 </mapper>
