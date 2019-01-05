@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/getUserInfo").authenticated()
-                .antMatchers(HttpMethod.POST, "/getDormitoryList").hasAuthority("ADMINISTRATOR")
+                //.antMatchers(HttpMethod.POST, "/getDormitoryList").hasAuthority("ADMINISTRATOR")
                 // 其他都放行了
                 .anyRequest().permitAll()
                 .and()
