@@ -2,6 +2,7 @@ package com.example.sweproject.security;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.example.sweproject.bean.User;
+import com.example.sweproject.socket.WebSocketServer;
 import com.example.sweproject.utils.JwtTokenUtils;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -71,6 +72,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         map.put("userID",jwtUser.getId());
         map.put("nickname",jwtUser.getNickname());
         response.getWriter().write(JSONUtils.toJSONString(map));
+        WebSocketServer.sendMessageTo("lalala","14");
     }
 
     // 这是验证失败时候调用的方法
