@@ -3,6 +3,7 @@ package com.example.sweproject.controller;
 import com.example.sweproject.bean.*;
 import com.example.sweproject.service.LocationService;
 import com.example.sweproject.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,9 @@ public class UserController
     @Autowired
     private LocationService locationService;
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public CommonMessage addUser(UserInfo userInfo)
+    public ResultEntity addUser(UserInfo userInfo)
     {
-        CommonMessage message=new CommonMessage();
+        ResultEntity message=new ResultEntity();
         if(userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null&& userService.getUserInfoByNickname(userInfo.getNickname())==null)
         {
             userInfo.setPassword(DigestUtils.md5DigestAsHex(userInfo.getPassword().getBytes()));
@@ -95,9 +96,9 @@ public class UserController
     }
 
     @RequestMapping(value="/saveUserInfo",method = RequestMethod.POST)
-    public CommonMessage saveUserInfo(UserInfo userInfo)
+    public ResultEntity saveUserInfo(UserInfo userInfo)
     {
-        CommonMessage commonMessage=new CommonMessage();
+        ResultEntity commonMessage=new ResultEntity();
         if(userService.getUserInfoByNickname(userInfo.getNickname())==null|| userService.getUserInfoByNickname(userInfo.getNickname()).getUserID().equals(userInfo.getUserID()))
         {
             if(userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber())==null|| userService.getUserInfoByPhoneNumber(userInfo.getPhoneNumber()).getUserID().equals(userInfo.getUserID()))
@@ -138,9 +139,9 @@ public class UserController
         }
     }
     @RequestMapping(value = "/insertUserAddress",method = RequestMethod.POST)
-    public CommonMessage insertUserAddress(int userID,Address address)
+    public ResultEntity insertUserAddress(int userID,Address address)
     {
-        CommonMessage commonMessage=new CommonMessage();
+        ResultEntity commonMessage=new ResultEntity();
         Address temp= locationService.getLocationByName(address.getAddress());
         if(temp==null)
         {
@@ -184,18 +185,30 @@ public class UserController
 
     }
     @RequestMapping(value = "/getUserInfo",method = RequestMethod.POST)
-    public UserInfo getUserInfo(int userID)
+    public ResultEntity getUserInfo(int userID)
     {
-        return userService.getUserInfo(userID);
+        ResultEntity resultEntity=new ResultEntity();
+        UserInfo temp=userService.getUserInfo(userID);
+        resultEntity.setState(temp==null?0:1);
+        resultEntity.setData(temp);
+        return resultEntity;
     }
     @RequestMapping(value = "/getUserAddresses",method = RequestMethod.POST)
-    public ArrayList<Address> getUserAddresses(int userID)
+    public ResultEntity getUserAddresses(int userID)
     {
-        return userService.getUserAddresses(userID);
+        ResultEntity resultEntity=new ResultEntity();
+        ArrayList<Address>temp=userService.getUserAddresses(userID);
+        resultEntity.setState(temp==null?0:1);
+        resultEntity.setData(temp);
+        return resultEntity;
     }
     @RequestMapping(value = "/getDormitoryList",method = RequestMethod.POST)
-    public ArrayList<String>getDormitoryList()
+    public ResultEntity gotDormitoryList()
     {
-        return userService.getDormitoryList();
+        ResultEntity resultEntity=new ResultEntity();
+        ArrayList<String> temp=userService.getDormitoryList();
+        resultEntity.setState(temp==null?0:1);
+        resultEntity.setData(temp);
+        return resultEntity;
     }
 }

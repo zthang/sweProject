@@ -1,9 +1,10 @@
 package com.example.sweproject.bean;
 
-public class CommonMessage
+public class ResultEntity
 {
-    private String message;//信息内容
-    private Integer state;//成功信息还是失败信息1：0
+    private String message;
+    private Integer state;
+    private Object data;
 
     public String getMessage() {
         return message;
@@ -19,5 +20,13 @@ public class CommonMessage
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }

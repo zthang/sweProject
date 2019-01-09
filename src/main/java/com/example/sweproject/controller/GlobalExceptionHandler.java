@@ -1,6 +1,6 @@
 package com.example.sweproject.controller;
 
-import com.example.sweproject.bean.CommonMessage;
+import com.example.sweproject.bean.ResultEntity;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,16 +26,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request)
     {
-        CommonMessage commonMessage=new CommonMessage();
+        ResultEntity commonMessage=new ResultEntity();
         commonMessage.setState(0);
         commonMessage.setMessage("参数传递错误，检查参数格式！");
         return new ResponseEntity<Object>(commonMessage, NOT_EXTENDED);
     }
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public CommonMessage jsonHandler(HttpServletRequest request, Exception e)
+    public ResultEntity jsonHandler(HttpServletRequest request, Exception e)
     {
-        CommonMessage commonMessage = new CommonMessage();
+        ResultEntity commonMessage = new ResultEntity();
         commonMessage.setMessage(e.getMessage());
         commonMessage.setState(0);
         log(e, request);
@@ -43,9 +43,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
     @ExceptionHandler(value = ExpiredJwtException.class)
     @ResponseBody
-    public CommonMessage TokenException(HttpServletRequest request, Exception e)
+    public ResultEntity TokenException(HttpServletRequest request, Exception e)
     {
-        CommonMessage commonMessage = new CommonMessage();
+        ResultEntity commonMessage = new ResultEntity();
         commonMessage.setMessage(e.getMessage());
         commonMessage.setState(0);
         log(e, request);

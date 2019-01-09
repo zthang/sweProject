@@ -1,7 +1,7 @@
 package com.example.sweproject.controller;
 
 import com.alibaba.druid.support.json.JSONUtils;
-import com.example.sweproject.bean.CommonMessage;
+import com.example.sweproject.bean.ResultEntity;
 import com.example.sweproject.service.UserService;
 import com.example.sweproject.utils.AliyunOSSUtil;
 import org.apache.ibatis.annotations.Param;
@@ -33,9 +33,9 @@ public class UploadController
      * @param file
      */
     @RequestMapping(value = "/setUserPic",method = RequestMethod.POST)
-    public CommonMessage setUserPic(HttpServletRequest request, @RequestParam("pic") MultipartFile file)
+    public ResultEntity setUserPic(HttpServletRequest request, @RequestParam("pic") MultipartFile file)
     {
-        CommonMessage commonMessage=new CommonMessage();
+        ResultEntity commonMessage=new ResultEntity();
         logger.info("============>文件上传");
         try {
 

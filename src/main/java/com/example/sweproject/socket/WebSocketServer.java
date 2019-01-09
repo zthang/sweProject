@@ -28,7 +28,7 @@ public class WebSocketServer {
     /**
      * 连接建立成功调用的方法*/
     @OnOpen
-    public void onOpen(@PathParam("userCode") String userCode, Session session)throws IOException {
+    public void onOpen(@PathParam("userCode") String userCode, Session session)throws IOException,EncodeException {
         this.currentUser = userCode;
         this.session = session;
         webSocketSet.add(this);     //加入set中
